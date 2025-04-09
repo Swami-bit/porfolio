@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Hometown - Practical 4</title>
+    <style>
+        /* Internal CSS for styling the hometown page */
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f0e6d2; /* Warm beige background */
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: #8b4513; /* Brown header */
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            font-family: 'Palatino Linotype', serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+        
+        nav {
+            background-color: #5d2906; /* Darker brown for navigation */
+            padding: 10px 0;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+            margin: 0;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #f0e6d2;
+        }
+        
+        .hero {
+            height: 500px;
+            background-image: url('/placeholder.svg?height=500&width=1200');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            padding: 0 20px;
+        }
+        
+        .hero-overlay h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-overlay p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #8b4513;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #8b4513;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .about-image {
+            flex: 1;
+        }
+        
+        .about-image img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #8b4513;
+        }
+        
+        .about-text p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: #555;
+        }
+        
+        .attractions {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .attraction-card {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .attraction-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .attraction-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .attraction-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .attraction-card:hover .attraction-image img {
+            transform: scale(1.1);
+        }
+        
+        .attraction-content {
+            padding: 20px;
+        }
+        
+        .attraction-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #8b4513;
+        }
+        
+        .attraction-content p {
+            color: #666;
+        }
+        
+        .culture-section {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .culture-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .culture-item {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .culture-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #8b4513;
+            border-bottom: 2px solid #f0e6d2;
+            padding-bottom: 10px;
+        }
+        
+        .culture-item p {
+            color: #555;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            height: 250px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        footer {
+            background-color: #8b4513;
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        footer p {
+            margin-bottom: 10px;
+        }
+        
+        footer a {
+            color: #f0e6d2;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        footer a:hover {
+            color: #fff;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .hero-overlay h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-overlay p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Chhatrapati Sambhaji Nagar</h1>
+            <p>A Historic and Cultural Hub in Maharashtra</p>
+        </div>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#attractions">Attractions</a></li>
+            <li><a href="#culture">Culture</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="index.html">Back to Portfolio</a></li>
+        </ul>
+    </nav>
+    
+    <div class="hero">
+        <div class="hero-overlay">
+            <h2>Welcome to Chhatrapati Sambhaji Nagar</h2>
+            <p>Discover the rich history, architectural marvels, and vibrant culture of this historic city in Maharashtra</p>
+        </div>
+    </div>
+    
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Chhatrapati Sambhaji Nagar</h2>
+        
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="/placeholder.svg?height=400&width=600" alt="Chhatrapati Sambhaji Nagar City View">
+                </div>
+                <div class="about-text">
+                    <h3>A City of Historical Significance</h3>
+                    <p>Chhatrapati Sambhaji Nagar, formerly known as Aurangabad, is a historic city located in the Marathwada region of Maharashtra, India. Named after the Maratha warrior king Chhatrapati Sambhaji Maharaj, the city is renowned for its rich cultural heritage and historical monuments.</p>
+                    <p>The city serves as a gateway to the famous Ajanta and Ellora Caves, which are UNESCO World Heritage Sites. With a history dating back to the 16th century, Chhatrapati Sambhaji Nagar combines historical significance with modern development.</p>
+                    <p>The city is also an important industrial and educational hub in the Marathwada region, contributing significantly to Maharashtra's economy and cultural landscape.</p>
+                </div>
+            </div>
+        
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Geography and Climate</h3>
+                    <p>Located in the Deccan Plateau, Chhatrapati Sambhaji Nagar enjoys a semi-arid climate with hot summers and mild winters. The city is surrounded by hills on all sides, creating a unique geographical setting.</p>
+                    <p>The Kham River flows through the city, providing water resources for the region. The landscape features rocky terrain and fertile plains, creating a diverse ecological environment.</p>
+                    <p>The best time to visit Chhatrapati Sambhaji Nagar is during the winter months from October to March when the weather is pleasant and ideal for exploring the city's numerous historical sites and attractions.</p>
+                </div>
+                <div class="about-image">
+                    <img src="/placeholder.svg?height=400&width=600" alt="Chhatrapati Sambhaji Nagar Landscape">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="attractions" class="section" style="background-color: #fff;">
+        <div class="container">
+            <h2 class="section-title">Popular Attractions</h2>
+        
+            <div class="attractions">
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="/placeholder.svg?height=200&width=300" alt="Bibi Ka Maqbara">
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Bibi Ka Maqbara</h3>
+                        <p>Often called the "Taj of the Deccan," this beautiful mausoleum was built by Aurangzeb's son in memory of his mother. It bears a striking resemblance to the Taj Mahal and is one of the city's most iconic landmarks.</p>
+                    </div>
+                </div>
+            
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="/placeholder.svg?height=200&width=300" alt="Ellora Caves">
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Ellora Caves</h3>
+                        <p>Located about 30 km from the city, these 34 rock-cut temples and monasteries represent Buddhist, Hindu, and Jain monuments dating from 600-1000 CE. The Kailasa Temple, a massive monolithic structure, is the highlight of Ellora.</p>
+                    </div>
+                </div>
+            
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="/placeholder.svg?height=200&width=300" alt="Ajanta Caves">
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Ajanta Caves</h3>
+                        <p>About 100 km from the city, these 30 rock-cut Buddhist cave monuments date from the 2nd century BCE to about 480 CE. They are famous for their exquisite paintings and sculptures that depict Buddhist religious art.</p>
+                    </div>
+                </div>
+            
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="/placeholder.svg?height=200&width=300" alt="Aurangabad Caves">
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Aurangabad Caves</h3>
+                        <p>These 12 Buddhist caves are located on a hill just outside the city. Dating back to the 6th and 7th century, they contain impressive sculptures and carvings that showcase the artistic excellence of that era.</p>
+                    </div>
+                </div>
+            
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="/placeholder.svg?height=200&width=300" alt="Daulatabad Fort">
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Daulatabad Fort</h3>
+                        <p>This 12th-century fortress stands on a conical hill about 15 km from the city. Known for its advanced defensive systems, it was once the capital of the Delhi Sultanate during Muhammad bin Tughlaq's reign.</p>
+                    </div>
+                </div>
+            
+                <div class="attraction-card">
+                    <div class="attraction-image">
+                        <img src="/placeholder.svg?height=200&width=300" alt="Panchakki">
+                    </div>
+                    <div class="attraction-content">
+                        <h3>Panchakki (Water Mill)</h3>
+                        <p>This 17th-century water mill is powered by an underground water channel that brings water from a spring located 8 km away. The complex also houses the tomb of Sufi saint Baba Shah Musafir.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="culture" class="section">
+        <div class="container">
+            <h2 class="section-title">Culture & Heritage</h2>
+        
+            <div class="culture-section">
+                <div class="culture-content">
+                    <div class="culture-item">
+                        <h3>Festivals</h3>
+                        <p>Chhatrapati Sambhaji Nagar celebrates a variety of festivals with great enthusiasm. Diwali, Eid, Ganesh Chaturthi, and Shivaji Jayanti are major celebrations that bring the community together.</p>
+                        <p>The city also hosts the Ellora-Ajanta Festival, which showcases the rich cultural heritage of the region through music, dance, and art performances against the backdrop of the ancient caves.</p>
+                    </div>
+                
+                    <div class="culture-item">
+                        <h3>Cuisine</h3>
+                        <p>The local cuisine reflects the diverse cultural influences on the city. Specialties include Naan Qalia (a bread and meat dish), Tahri (spiced rice), and the famous Marathwada-style spicy curries.</p>
+                        <p>The city is also known for its Mughlai cuisine, with dishes like biryani, kebabs, and various sweet delicacies that have evolved over centuries of cultural exchange.</p>
+                    </div>
+                
+                    <div class="culture-item">
+                        <h3>Arts & Crafts</h3>
+                        <p>Himroo and Paithani are traditional textile crafts that originated in this region. Himroo is a fabric made from silk and cotton, while Paithani is a variety of sari with distinctive designs.</p>
+                        <p>The city is also known for its bidriware (metal handicrafts), stone carvings, and miniature paintings that reflect the artistic heritage of the region.</p>
+                    </div>
+                
+                    <div class="culture-item">
+                        <h3>Music & Dance</h3>
+                        <p>Traditional Maharashtrian folk music and dance forms like Lavani, Tamasha, and Powada are popular in the region. The city also has a rich tradition of classical music and dance performances.</p>
+                        <p>Various cultural institutions in the city organize regular programs to promote and preserve these traditional art forms, ensuring they continue to thrive in the modern era.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="gallery" class="section" style="background-color: #fff;">
+        <div class="container">
+            <h2 class="section-title">Photo Gallery</h2>
+            
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="/placeholder.svg?height=250&width=250" alt="Gajanan Maharaj Temple Front View">
+                </div>
+                <div class="gallery-item">
+                    <img src="/placeholder.svg?height=250&width=250" alt="Anand Sagar Lake">
+                </div>
+                <div class="gallery-item">
+                    <img src="/placeholder.svg?height=250&width=250" alt="Temple Architecture">
+                </div>
+                <div class="gallery-item">
+                    <img src="/placeholder.svg?height=250&width=250" alt="Local Festival Celebration">
+                </div>
+                <div class="gallery-item">
+                    <img src="/placeholder.svg?height=250&width=250" alt="Shegaon Market">
+                </div>
+                <div class="gallery-item">
+                    <img src="/placeholder.svg?height=250&width=250" alt="Traditional Food">
+                </div>
+                <div class="gallery-item">
+                    <img src="/placeholder.svg?height=250&width=250" alt="Sunset in Shegaon">
+                </div>
+                <div class="gallery-item">
+                    <img src="/placeholder.svg?height=250&width=250" alt="Cultural Performance">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Chhatrapati Sambhaji Nagar Tourism. All rights reserved.</p>
+            <p>Created with ❤️ by Swami Ganesh Deshpande</p>
+            <p><a href="index.html">Back to Portfolio</a></p>
+        </div>
+    </footer>
+</body>
+</html>

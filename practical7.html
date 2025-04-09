@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Counter - Practical 7</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        
+        header h1 {
+            margin: 0;
+        }
+        
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+        nav ul li {
+            margin: 0 10px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #f39c12;
+        }
+        
+        main {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .counter-container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .counter-header {
+            background-color: #f39c12;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .counter-header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        
+        .counter-body {
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .counter-value {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .counter-info {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            text-align: left;
+        }
+        
+        .counter-info h3 {
+            color: #f39c12;
+            margin-bottom: 15px;
+        }
+        
+        .counter-info p {
+            margin-bottom: 10px;
+        }
+        
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #f39c12;
+            padding: 15px;
+            margin-top: 30px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .note h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .note p {
+            color: #856404;
+        }
+        
+        footer {
+            background-color: #2c3e50;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+        }
+        
+        footer a {
+            color: #f39c12;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        footer a:hover {
+            color: #e67e22;
+        }
+        
+        @media (max-width: 500px) {
+            .counter-value {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>PHP Visitor Counter</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Back to Portfolio</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="counter-container">
+            <div class="counter-header">
+                <h2>Website Visitor Counter</h2>
+            </div>
+            
+            <div class="counter-body">
+                <h3>Total Visitors</h3>
+                <div class="counter-value">42</div>
+                <p>You are visitor number 42 to this website!</p>
+                
+                <div class="counter-info">
+                    <h3>How It Works</h3>
+                    <p>This visitor counter is implemented using PHP to track the number of visitors to the website. Here's how it works:</p>
+                    <ol>
+                        <li>PHP creates or reads a file that stores the visitor count.</li>
+                        <li>Each time the page loads, the count is incremented by one.</li>
+                        <li>The updated count is saved back to the file for future visits.</li>
+                        <li>The current count is displayed on the page.</li>
+                    </ol>
+                </div>
+                
+                <div class="note">
+                    <h3>Note</h3>
+                    <p>This is a demonstration of how a PHP visitor counter would work. In a real implementation, this would be powered by a PHP script on the server. The current count shown is a placeholder since this is a static HTML page in your portfolio.</p>
+                    <p>The actual PHP code would look like this:</p>
+                    <pre style="background-color: #f8f9fa; padding: 10px; border-radius: 4px; margin-top: 10px; overflow-x: auto;">
+&lt;?php
+// File to store the count
+$counterFile = "counter.txt";
+
+// Check if the file exists
+if (!file_exists($counterFile)) {
+    // If not, create it with a count of 1
+    $handle = fopen($counterFile, "w");
+    fwrite($handle, "1");
+    fclose($handle);
+    $count = 1;
+} else {
+    // If it exists, read the current count
+    $handle = fopen($counterFile, "r");
+    $count = fread($handle, 20);
+    fclose($handle);
+    
+    // Increment the count
+    $count++;
+    
+    // Write the new count back to the file
+    $handle = fopen($counterFile, "w");
+    fwrite($handle, $count);
+    fclose($handle);
+}
+
+// Display the count
+echo "&lt;h3&gt;Total Visitors&lt;/h3&gt;";
+echo "&lt;div class='counter-value'&gt;$count&lt;/div&gt;";
+echo "&lt;p&gt;You are visitor number $count to this website!&lt;/p&gt;";
+?&gt;</pre>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 PHP Visitor Counter. Created by Swami Ganesh Deshpande.</p>
+        <p><a href="index.html">Back to Portfolio</a></p>
+    </footer>
+</body>
+</html>

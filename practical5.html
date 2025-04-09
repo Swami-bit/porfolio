@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Display - Practical 5</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        header {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        
+        header h1 {
+            margin: 0;
+        }
+        
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+        nav ul li {
+            margin: 0 10px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #3498db;
+        }
+        
+        main {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .date-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .date-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 20px 0;
+        }
+        
+        .time-display {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #3498db;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .date-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .info-card {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .info-card h3 {
+            margin-top: 0;
+            color: #3498db;
+            font-size: 1.2rem;
+        }
+        
+        .info-card p {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 10px 0 0;
+        }
+        
+        .controls {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .format-options {
+            margin-top: 30px;
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .format-options h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .radio-group input {
+            margin-right: 8px;
+        }
+        
+        footer {
+            background-color: #2c3e50;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+        }
+        
+        footer a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        footer a:hover {
+            color: #2980b9;
+        }
+        
+        @media (max-width: 600px) {
+            .date-display, .time-display {
+                font-size: 2rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>JavaScript Date Display</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Back to Portfolio</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="date-container">
+            <h2>Current Date and Time</h2>
+            <div class="time-display" id="timeDisplay">00:00:00</div>
+            <div class="date-display" id="dateDisplay">Loading date...</div>
+            
+            <div class="date-info">
+                <div class="info-card">
+                    <h3>Day of Week</h3>
+                    <p id="dayOfWeek">-</p>
+                </div>
+                <div class="info-card">
+                    <h3>Day of Month</h3>
+                    <p id="dayOfMonth">-</p>
+                </div>
+                <div class="info-card">
+                    <h3>Month</h3>
+                    <p id="month">-</p>
+                </div>
+                <div class="info-card">
+                    <h3>Year</h3>
+                    <p id="year">-</p>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button id="refreshBtn">Refresh Date</button>
+                <button id="toggleFormatBtn">Toggle 12/24 Hour Format</button>
+            </div>
+            
+            <div class="format-options">
+                <h3>Date Format Options</h3>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="dateFormat" value="long" checked>
+                        Long Format (e.g., April 8, 2025)
+                    </label>
+                    <label>
+                        <input type="radio" name="dateFormat" value="short">
+                        Short Format (e.g., 04/08/2025)
+                    </label>
+                    <label>
+                        <input type="radio" name="dateFormat" value="iso">
+                        ISO Format (e.g., 2025-04-08)
+                    </label>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 JavaScript Date Display. Created by Swami Ganesh Deshpande.</p>
+        <p><a href="index.html">Back to Portfolio</a></p>
+    </footer>
+    
+    <script>
+        // DOM elements
+        const timeDisplay = document.getElementById('timeDisplay');
+        const dateDisplay = document.getElementById('dateDisplay');
+        const dayOfWeek = document.getElementById('dayOfWeek');
+        const dayOfMonth = document.getElementById('dayOfMonth');
+        const monthElement = document.getElementById('month');
+        const yearElement = document.getElementById('year');
+        const refreshBtn = document.getElementById('refreshBtn');
+        const toggleFormatBtn = document.getElementById('toggleFormatBtn');
+        const dateFormatRadios = document.getElementsByName('dateFormat');
+        
+        // Variables
+        let is24HourFormat = true;
+        let currentFormat = 'long';
+        let timerInterval;
+        
+        // Initialize
+        updateDateTime();
+        startTimer();
+        
+        // Event listeners
+        refreshBtn.addEventListener('click', updateDateTime);
+        toggleFormatBtn.addEventListener('click', toggleTimeFormat);
+        
+        dateFormatRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                currentFormat = this.value;
+                updateDateDisplay();
+            });
+        });
+        
+        // Functions
+        function startTimer() {
+            // Clear any existing interval
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+            
+            // Update time every second
+            timerInterval = setInterval(() => {
+                const now = new Date();
+                updateTimeDisplay(now);
+            }, 1000);
+        }
+        
+        function updateDateTime() {
+            const now = new Date();
+            updateTimeDisplay(now);
+            updateDateDisplay();
+            updateDateInfo(now);
+        }
+        
+        function updateTimeDisplay(date) {
+            let hours = date.getHours();
+            let ampm = '';
+            
+            if (!is24HourFormat) {
+                ampm = hours >= 12 ? ' PM' : ' AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12; // Convert 0 to 12
+            }
+            
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
+            
+            timeDisplay.textContent = `${String(hours).padStart(2, '0')}:${minutes}:${seconds}${ampm}`;
+        }
+        
+        function updateDateDisplay() {
+            const now = new Date();
+            
+            switch (currentFormat) {
+                case 'short':
+                    const month = String(now.getMonth() + 1).padStart(2, '0');
+                    const day = String(now.getDate()).padStart(2, '0');
+                    dateDisplay.textContent = `${month}/${day}/${now.getFullYear()}`;
+                    break;
+                    
+                case 'iso':
+                    dateDisplay.textContent = now.toISOString().split('T')[0];
+                    break;
+                    
+                case 'long':
+                default:
+                    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                    dateDisplay.textContent = now.toLocaleDateString('en-US', options);
+                    break;
+            }
+        }
+        
+        function updateDateInfo(date) {
+            // Day of week
+            const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            dayOfWeek.textContent = daysOfWeek[date.getDay()];
+            
+            // Day of month
+            dayOfMonth.textContent = date.getDate();
+            
+            // Month
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            monthElement.textContent = months[date.getMonth()];
+            
+            // Year
+            yearElement.textContent = date.getFullYear();
+        }
+        
+        function toggleTimeFormat() {
+            is24HourFormat = !is24HourFormat;
+            updateTimeDisplay(new Date());
+            
+            // Update button text
+            toggleFormatBtn.textContent = is24HourFormat ? 'Switch to 12-Hour Format' : 'Switch to 24-Hour Format';
+        }
+    </script>
+</body>
+</html>

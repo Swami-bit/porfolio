@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Feedback Form - Practical 3</title>
+    <link rel="stylesheet" href="practical3.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Student Feedback Form</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Back to Portfolio</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Course Feedback</h2>
+                    <p>Your feedback is valuable to us. Please take a moment to fill out this form to help us improve our courses and teaching methods.</p>
+                </div>
+                
+                <form id="feedbackForm">
+                    <div class="form-group">
+                        <label for="studentName">Full Name</label>
+                        <input type="text" id="studentName" name="studentName" placeholder="Enter your full name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="studentEmail">Email Address</label>
+                        <input type="email" id="studentEmail" name="studentEmail" placeholder="Enter your email address" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="studentId">Student ID</label>
+                        <input type="text" id="studentId" name="studentId" placeholder="Enter your student ID" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="department">Department</label>
+                        <select id="department" name="department" required>
+                            <option value="">Select your department</option>
+                            <option value="cse">Computer Science and Engineering</option>
+                            <option value="it">Information Technology</option>
+                            <option value="ece">Electronics and Communication</option>
+                            <option value="ee">Electrical Engineering</option>
+                            <option value="me">Mechanical Engineering</option>
+                            <option value="ce">Civil Engineering</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="semester">Semester</label>
+                        <select id="semester" name="semester" required>
+                            <option value="">Select your semester</option>
+                            <option value="1">1st Semester</option>
+                            <option value="2">2nd Semester</option>
+                            <option value="3">3rd Semester</option>
+                            <option value="4">4th Semester</option>
+                            <option value="5">5th Semester</option>
+                            <option value="6">6th Semester</option>
+                            <option value="7">7th Semester</option>
+                            <option value="8">8th Semester</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="course">Course</label>
+                        <select id="course" name="course" required>
+                            <option value="">Select the course</option>
+                            <option value="webdev">Web Development</option>
+                            <option value="dsa">Data Structures and Algorithms</option>
+                            <option value="dbms">Database Management Systems</option>
+                            <option value="os">Operating Systems</option>
+                            <option value="ai">Artificial Intelligence</option>
+                            <option value="ml">Machine Learning</option>
+                            <option value="cloud">Cloud Computing</option>
+                            <option value="se">Software Engineering</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Course Content Quality</label>
+                        <div class="rating">
+                            <input type="radio" id="content5" name="contentRating" value="5" required>
+                            <label for="content5">Excellent</label>
+                            
+                            <input type="radio" id="content4" name="contentRating" value="4">
+                            <label for="content4">Very Good</label>
+                            
+                            <input type="radio" id="content3" name="contentRating" value="3">
+                            <label for="content3">Good</label>
+                            
+                            <input type="radio" id="content2" name="contentRating" value="2">
+                            <label for="content2">Fair</label>
+                            
+                            <input type="radio" id="content1" name="contentRating" value="1">
+                            <label for="content1">Poor</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Teaching Quality</label>
+                        <div class="rating">
+                            <input type="radio" id="teaching5" name="teachingRating" value="5" required>
+                            <label for="teaching5">Excellent</label>
+                            
+                            <input type="radio" id="teaching4" name="teachingRating" value="4">
+                            <label for="teaching4">Very Good</label>
+                            
+                            <input type="radio" id="teaching3" name="teachingRating" value="3">
+                            <label for="teaching3">Good</label>
+                            
+                            <input type="radio" id="teaching2" name="teachingRating" value="2">
+                            <label for="teaching2">Fair</label>
+                            
+                            <input type="radio" id="teaching1" name="teachingRating" value="1">
+                            <label for="teaching1">Poor</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Lab Facilities</label>
+                        <div class="rating">
+                            <input type="radio" id="lab5" name="labRating" value="5" required>
+                            <label for="lab5">Excellent</label>
+                            
+                            <input type="radio" id="lab4" name="labRating" value="4">
+                            <label for="lab4">Very Good</label>
+                            
+                            <input type="radio" id="lab3" name="labRating" value="3">
+                            <label for="lab3">Good</label>
+                            
+                            <input type="radio" id="lab2" name="labRating" value="2">
+                            <label for="lab2">Fair</label>
+                            
+                            <input type="radio" id="lab1" name="labRating" value="1">
+                            <label for="lab1">Poor</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>What aspects of the course did you find most helpful?</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="lectures" name="helpfulAspects" value="lectures">
+                                <label for="lectures">Lectures</label>
+                            </div>
+                            
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="labs" name="helpfulAspects" value="labs">
+                                <label for="labs">Laboratory Sessions</label>
+                            </div>
+                            
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="assignments" name="helpfulAspects" value="assignments">
+                                <label for="assignments">Assignments</label>
+                            </div>
+                            
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="projects" name="helpfulAspects" value="projects">
+                                <label for="projects">Projects</label>
+                            </div>
+                            
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="tutorials" name="helpfulAspects" value="tutorials">
+                                <label for="tutorials">Tutorials</label>
+                            </div>
+                            
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="materials" name="helpfulAspects" value="materials">
+                                <label for="materials">Study Materials</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="strengths">What were the strengths of this course?</label>
+                        <textarea id="strengths" name="strengths" rows="4" placeholder="Please share what you liked about the course"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="improvements">What aspects of the course could be improved?</label>
+                        <textarea id="improvements" name="improvements" rows="4" placeholder="Please suggest any improvements"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="additionalComments">Additional Comments</label>
+                        <textarea id="additionalComments" name="additionalComments" rows="4" placeholder="Any other feedback you'd like to share"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn-submit">Submit Feedback</button>
+                        <button type="reset" class="btn-reset">Reset Form</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 SSGMCE Student Feedback System. All rights reserved.</p>
+            <p><a href="index.html">Back to Portfolio</a></p>
+        </div>
+    </footer>
+
+    <script src="practical3.js"></script>
+</body>
+</html>

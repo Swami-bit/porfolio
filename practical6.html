@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator - Practical 6</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        
+        header h1 {
+            margin: 0;
+        }
+        
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+        nav ul li {
+            margin: 0 10px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #e74c3c;
+        }
+        
+        main {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .calculator-container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .calculator-header {
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .calculator-header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        
+        .calculator-body {
+            padding: 20px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .input-group input:focus {
+            border-color: #e74c3c;
+            outline: none;
+        }
+        
+        .operation-group {
+            margin-bottom: 20px;
+        }
+        
+        .operation-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .operation-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .operation-button {
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        
+        .operation-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .operation-button:active {
+            transform: translateY(0);
+        }
+        
+        .add {
+            background-color: #2ecc71;
+            color: #fff;
+        }
+        
+        .add:hover {
+            background-color: #27ae60;
+        }
+        
+        .subtract {
+            background-color: #e74c3c;
+            color: #fff;
+        }
+        
+        .subtract:hover {
+            background-color: #c0392b;
+        }
+        
+        .multiply {
+            background-color: #3498db;
+            color: #fff;
+        }
+        
+        .multiply:hover {
+            background-color: #2980b9;
+        }
+        
+        .divide {
+            background-color: #9b59b6;
+            color: #fff;
+        }
+        
+        .divide:hover {
+            background-color: #8e44ad;
+        }
+        
+        .result-group {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .result-label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .result-display {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            border: 1px solid #ddd;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .history-section {
+            margin-top: 40px;
+        }
+        
+        .history-section h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .history-list {
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            padding: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+        }
+        
+        .history-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .history-item:last-child {
+            border-bottom: none;
+        }
+        
+        .clear-history {
+            background-color: #f8f9fa;
+            color: #e74c3c;
+            border: 1px solid #ddd;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .clear-history:hover {
+            background-color: #e74c3c;
+            color: #fff;
+            border-color: #e74c3c;
+        }
+        
+        footer {
+            background-color: #2c3e50;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+        }
+        
+        footer a {
+            color: #e74c3c;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        footer a:hover {
+            color: #c0392b;
+        }
+        
+        @media (max-width: 500px) {
+            .calculator-container {
+                width: 100%;
+            }
+            
+            .operation-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Simple JavaScript Calculator</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Back to Portfolio</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="calculator-container">
+            <div class="calculator-header">
+                <h2>Basic Calculator</h2>
+            </div>
+            
+            <div class="calculator-body">
+                <div class="input-group">
+                    <label for="num1">First Number:</label>
+                    <input type="number" id="num1" placeholder="Enter first number">
+                </div>
+                
+                <div class="input-group">
+                    <label for="num2">Second Number:</label>
+                    <input type="number" id="num2" placeholder="Enter second number">
+                </div>
+                
+                <div class="operation-group">
+                    <label>Select Operation:</label>
+                    <div class="operation-buttons">
+                        <button class="operation-button add" onclick="calculate('add')">Addition (+)</button>
+                        <button class="operation-button subtract" onclick="calculate('subtract')">Subtraction (-)</button>
+                        <button class="operation-button multiply" onclick="calculate('multiply')">Multiplication (×)</button>
+                        <button class="operation-button divide" onclick="calculate('divide')">Division (÷)</button>
+                    </div>
+                </div>
+                
+                <div class="result-group">
+                    <div class="result-label">Result:</div>
+                    <div class="result-display" id="result">-</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="history-section">
+            <h3>Calculation History</h3>
+            <div class="history-list" id="history">
+                <div class="history-item">No calculations yet.</div>
+            </div>
+            <button class="clear-history" onclick="clearHistory()">Clear History</button>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 JavaScript Calculator. Created by Swami Ganesh Deshpande.</p>
+        <p><a href="index.html">Back to Portfolio</a></p>
+    </footer>
+    
+    <script>
+        // Initialize calculation history array
+        let calculationHistory = [];
+        
+        // Function to perform calculation
+        function calculate(operation) {
+            // Get input values
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+            
+            // Check if inputs are valid numbers
+            if (isNaN(num1) || isNaN(num2)) {
+                document.getElementById('result').textContent = 'Please enter valid numbers';
+                return;
+            }
+            
+            let result;
+            let operationSymbol;
+            
+            // Perform the selected operation
+            switch (operation) {
+                case 'add':
+                    result = num1 + num2;
+                    operationSymbol = '+';
+                    break;
+                case 'subtract':
+                    result = num1 - num2;
+                    operationSymbol = '-';
+                    break;
+                case 'multiply':
+                    result = num1 * num2;
+                    operationSymbol = '×';
+                    break;
+                case 'divide':
+                    // Check for division by zero
+                    if (num2 === 0) {
+                        document.getElementById('result').textContent = 'Cannot divide by zero';
+                        return;
+                    }
+                    result = num1 / num2;
+                    operationSymbol = '÷';
+                    break;
+                default:
+                    document.getElementById('result').textContent = 'Invalid operation';
+                    return;
+            }
+            
+            // Display the result
+            document.getElementById('result').textContent = result;
+            
+            // Add to history
+            const calculationString = `${num1} ${operationSymbol} ${num2} = ${result}`;
+            calculationHistory.unshift(calculationString); // Add to beginning of array
+            
+            // Update history display
+            updateHistoryDisplay();
+        }
+        
+        // Function to update history display
+        function updateHistoryDisplay() {
+            const historyElement = document.getElementById('history');
+            
+            // Clear current history display
+            historyElement.innerHTML = '';
+            
+            // If no history, show message
+            if (calculationHistory.length === 0) {
+                historyElement.innerHTML = '<div class="history-item">No calculations yet.</div>';
+                return;
+            }
+            
+            // Add each history item
+            calculationHistory.forEach(item => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                historyItem.textContent = item;
+                historyElement.appendChild(historyItem);
+            });
+        }
+        
+        // Function to clear history
+        function clearHistory() {
+            calculationHistory = [];
+            updateHistoryDisplay();
+        }
+    </script>
+</body>
+</html>
